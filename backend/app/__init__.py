@@ -1,0 +1,2 @@
+"""Nirnay application package."""
+

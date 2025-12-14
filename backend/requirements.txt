@@ -1,0 +1,9 @@
+fastapi           # Web framework for API and WebSocket
+uvicorn           # ASGI server to run FastAPI
+websockets        # WebSocket protocol support
+numpy             # Audio processing
+torch             # Required for Whisper ML model
+openai-whisper    # Speech-to-text model
+python-multipart  # Handling multipart uploads
+gtts              # Text-to-speech conversion for Hindi
+pydantic          # Data validation and schemas
