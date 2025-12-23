@@ -36,7 +36,7 @@ class ConversationManager:
     Manages India-context-aware live AI conversation with fragmented speech handling.
     
     This class orchestrates the entire conversation flow:
-    1. Receives fragmented transcripts from Whisper STT
+    1. Receives fragmented transcripts from OpenAI Speech-to-Text API
     2. Updates NLP modules (intent, entities, order context)
     3. Generates contextually appropriate Hindi questions
     4. Tracks incident information progressively
@@ -206,17 +206,38 @@ class ConversationManager:
         incident = self.order_context.get_incident()
         missing_fields = incident.get("missing_fields", [])
         
-        # Increment question count
+        # Increment question count FIRST (before logging and checks)
+        # This ensures question_count is always accurate
         self.question_count += 1
         
         # Handle first interaction (greeting)
-        if self.question_count == 1 or not self.user_input_buffer:
+        # Only show greeting if this is truly the first question AND no user input yet
+        if self.question_count == 1 and not self.user_input_buffer:
             greeting = (
                 "नमस्ते, मैं आपकी मदद के लिए यहाँ हूँ। "
                 "कृपया बताएं कि क्या हुआ है?"
             )
             self.last_question = greeting
             return greeting
+        
+        # Track if we've already asked about a specific field
+        # Prevent asking the same question multiple times
+        asked_fields = set()
+        if self.last_question:
+            # Check what field we asked about last time
+            if "कहाँ" in self.last_question or "स्थान" in self.last_question or "जगह" in self.last_question:
+                asked_fields.add("location")
+            elif "नाम" in self.last_question:
+                asked_fields.add("name")
+            elif "क्या हुआ" in self.last_question or "समस्या" in self.last_question:
+                asked_fields.add("incident_type")
+        
+        # If user has responded, we can ask new questions
+        # If user hasn't responded and we already asked, wait for response
+        if self.last_question and not self.user_input_buffer and self.question_count > 1:
+            # User hasn't responded yet, don't repeat the same question
+            # Return a generic acknowledgment instead
+            return "मैं समझ रहा हूँ, कृपया जारी रखें।"  # "I understand, please continue"
         
         # Handle escalation situation
         # If escalation is required, acknowledge and reassure
@@ -264,7 +285,8 @@ class ConversationManager:
             return question
         
         # Priority 4: Name (optional but helpful)
-        if "name" in missing_fields and self.question_count > 2:
+        # Ask for name earlier (after incident_type and location are known)
+        if "name" in missing_fields and self.question_count > 1:
             name_questions = [
                 "कृपया अपना नाम बताएं।",
                 "आपका नाम क्या है?",

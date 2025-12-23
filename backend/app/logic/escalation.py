@@ -1,333 +1,196 @@
 """
-Escalation module for detecting when human intervention is required.
+Decision Engine: Escalation Logic
 
-This module determines if a human operator should take over the conversation
-from the AI based on various escalation triggers.
+This module implements deterministic rules for human-in-the-loop escalation.
+OpenAI MUST NOT trigger escalation - all logic is local and explainable.
 
-Escalation Triggers:
-- High urgency incidents (critical or high urgency levels)
-- Missing critical fields (location, incident_type)
-- Panic/emotional keywords in user speech
-- Explicit requests for human assistance
-- Low conversation progress after multiple attempts
+Naming Philosophy:
+- We use "decision_engine" instead of "ai_agent" to emphasize that this is
+  a deterministic decision-making system, not an autonomous AI agent.
+- Decision engine clearly describes our role: making escalation decisions
+  based on explicit rules, not autonomous agent behavior.
+- This naming makes it clear that escalation decisions are deterministic and
+  explainable, not black-box AI agent decisions.
+
+Escalation Rules (all deterministic):
+1. If urgency_score > threshold → escalate
+2. If clarity drops too low → escalate
+3. If panic persists → escalate
+4. If critical fields missing after N questions → escalate
+5. If explicit human help request → escalate
 """
 
-import re
 import logging
-from typing import Dict, List, Optional
+from typing import Dict, Optional
 
-# Configure logging
 logger = logging.getLogger(__name__)
 
-# Panic and emotional keywords in Hindi/Hinglish/English
-# These indicate high stress, fear, or urgent need for help
-PANIC_KEYWORDS = [
-    # Hindi panic indicators
-    "तुरंत",  # immediately
-    "जल्दी",  # quickly/hurry
-    "मदद",  # help
-    "बचाओ",  # save me
-    "मर रहा",  # dying
-    "मर रही",  # dying (feminine)
-    "बेहोश",  # unconscious
-    "खून",  # blood
-    "आग",  # fire
-    "डर",  # fear
-    "भागो",  # run
-    "खतरा",  # danger
-    "बहुत बुरा",  # very bad
-    "नहीं सहन हो रहा",  # can't bear it
-    "दर्द",  # pain (severe)
-    "सांस नहीं आ रही",  # can't breathe
-    "सांस नहीं आ रहा",  # can't breathe
-    
-    # English panic indicators
-    "help", "urgent", "emergency", "dying", "unconscious",
-    "blood", "fire", "danger", "run", "dangerous",
-    "can't breathe", "can't move", "severe pain",
-    "terrible", "awful", "horrible", "scared", "afraid",
-    
-    # Hinglish panic indicators (code-switching)
-    "help चाहिए",  # need help
-    "urgent है",  # is urgent
-    "emergency है",  # is emergency
-    "तुरंत आओ",  # come immediately
-    "जल्दी आओ",  # come quickly
-    "मदद चाहिए",  # need help
-    "बचाओ मुझे",  # save me
-]
+# Escalation thresholds (deterministic, configurable)
+URGENCY_ESCALATION_THRESHOLD = 0.7  # Escalate if urgency score > 0.7
+CLARITY_ESCALATION_THRESHOLD = 0.3  # Escalate if clarity < 0.3
+PANIC_PERSISTENCE_THRESHOLD = 3     # Escalate if panic detected 3+ times
+CRITICAL_FIELDS_MISSING_THRESHOLD = 5  # Escalate if critical fields missing after 5 questions
 
-# Emotional distress keywords
-# These indicate emotional state that may require human empathy
-EMOTIONAL_KEYWORDS = [
-    # Hindi emotional indicators
-    "डर लग रहा",  # feeling scared
-    "घबराहट",  # panic/anxiety
-    "चिंता",  # worry
-    "परेशान",  # troubled
-    "उदास",  # sad
-    "रो रहा",  # crying
-    "रो रही",  # crying (feminine)
-    "बहुत डर",  # very scared
-    
-    # English emotional indicators
-    "scared", "afraid", "worried", "anxious", "panicking",
-    "crying", "terrified", "frightened", "distressed",
-    
-    # Hinglish emotional indicators
-    "डर लग रहा है",  # feeling scared
-    "scared हूं",  # I am scared
-    "worried हूं",  # I am worried
-]
-
-# Explicit requests for human help
-# User directly asking to speak with a human operator
-HUMAN_HELP_REQUESTS = [
-    # Hindi requests
-    "इंसान से बात",  # talk to human
-    "व्यक्ति से बात",  # talk to person
-    "मानव से बात",  # talk to human
-    "ऑपरेटर",  # operator
-    "एजेंट",  # agent
-    "कर्मचारी",  # staff/employee
-    "व्यक्ति",  # person
-    "इंसान",  # human
-    
-    # English requests
-    "human", "person", "operator", "agent", "staff",
-    "talk to human", "speak to person", "real person",
-    "actual person", "human operator", "human agent",
-    
-    # Hinglish requests
-    "human से बात",  # talk to human
-    "operator चाहिए",  # need operator
-    "person से बात",  # talk to person
-]
-
-# Critical fields that must be present for proper incident handling
-# Missing these after multiple questions indicates need for human help
+# Critical fields that must be collected
 CRITICAL_FIELDS = ["location", "incident_type"]
 
 
 def check_escalation_required(
-    urgency: str,
-    missing_fields: List[str],
-    completeness: float,
-    user_input: str,
-    question_count: int
-) -> Dict:
+    urgency_score: float,
+    urgency_level: str,
+    clarity_avg: float,
+    emotion_history: list,
+    missing_fields: list,
+    question_count: int,
+    explicit_human_request: bool = False,
+    immediate_danger: bool = False
+) -> Dict[str, any]:
     """
-    Determine if human intervention is required based on escalation triggers.
+    Determine if human intervention is required using deterministic rules.
     
-    This function checks multiple conditions to determine if the conversation
-    should be escalated to a human operator. Returns JSON with human_required
-    flag and reason for escalation.
+    This function implements explicit, explainable escalation logic.
+    OpenAI is NOT used for escalation decisions.
     
-    Escalation Triggers (any one can trigger escalation):
-    1. High urgency: critical or high urgency levels
-    2. Missing critical fields: location or incident_type missing after multiple questions
-    3. Panic/emotional keywords: multiple panic indicators or emotional distress
-    4. Explicit human help requests: user directly asking for human operator
-    5. Low progress: very low completeness after many questions
+    Escalation Rules (any one can trigger escalation):
+    1. Urgency threshold: urgency_score > URGENCY_ESCALATION_THRESHOLD
+    2. Clarity threshold: clarity_avg < CLARITY_ESCALATION_THRESHOLD
+    3. Panic persistence: panic detected PANIC_PERSISTENCE_THRESHOLD+ times
+    4. Missing critical fields: critical fields missing after N questions
+    5. Explicit request: user directly asks for human operator
     
     Args:
-        urgency: Urgency level string ("critical", "high", "medium", "low")
-        missing_fields: List of missing field names (e.g., ["location", "name"])
-        completeness: Overall completeness score (0.0 to 1.0)
-        user_input: Accumulated user input text (may be fragmented)
+        urgency_score: Calculated urgency score (0.0 to 1.0)
+        urgency_level: Urgency level ("critical", "high", "medium", "low")
+        clarity_avg: Average clarity score (0.0 to 1.0)
+        emotion_history: List of recent emotions
+        missing_fields: List of missing critical fields
         question_count: Number of questions asked so far
+        explicit_human_request: Whether user explicitly requested human help
     
     Returns:
-        dict: JSON with keys:
-            - "human_required": bool - True if human intervention needed
-            - "reason": str or None - Reason for escalation (None if no escalation)
-    
-    Example:
-        >>> check_escalation_required(
-        ...     urgency="critical",
-        ...     missing_fields=["name"],
-        ...     completeness=0.6,
-        ...     user_input="तुरंत मदद चाहिए",
-        ...     question_count=2
-        ... )
-        {
-            "human_required": True,
-            "reason": "Critical urgency level detected"
-        }
+        dict: Escalation decision with keys:
+            - "human_required": bool - True if escalation needed
+            - "reason": str - Reason for escalation (None if no escalation)
+            - "priority": str - "critical" | "high" | "medium" | "low"
     """
-    # Initialize result
-    # Default: no escalation needed
     human_required = False
     reason = None
+    priority = "medium"
     
-    # Check 1: High Urgency
-    # Critical or high urgency incidents require immediate human attention
-    # These are life-threatening or time-sensitive situations
-    if urgency in ["critical", "high"]:
+    # Rule 1: Urgency threshold
+    if urgency_score > URGENCY_ESCALATION_THRESHOLD:
         human_required = True
-        if urgency == "critical":
-            reason = "Critical urgency level detected - immediate human intervention required"
-        else:
-            reason = "High urgency level detected - human intervention recommended"
+        reason = f"High urgency score ({urgency_score:.2f}) exceeds threshold ({URGENCY_ESCALATION_THRESHOLD})"
+        priority = urgency_level
         logger.warning(f"Escalation triggered: {reason}")
         return {
             "human_required": True,
-            "reason": reason
+            "reason": reason,
+            "priority": priority
         }
     
-    # Check 2: Missing Critical Fields
-    # Location and incident_type are essential for proper emergency response
-    # If these are missing after multiple questions, user may need human help
-    # to clarify or provide information more naturally
-    critical_fields = CRITICAL_FIELDS
-    missing_critical = [f for f in missing_fields if f in critical_fields]
-    
-    if missing_critical:
-        # Escalate if critical fields missing after 4+ questions
-        # This indicates the AI is struggling to extract essential information
-        if question_count >= 4:
-            human_required = True
-            reason = (
-                f"Missing critical fields ({', '.join(missing_critical)}) "
-                f"after {question_count} questions - human assistance needed"
-            )
-            logger.warning(f"Escalation triggered: {reason}")
-            return {
-                "human_required": True,
-                "reason": reason
-            }
-    
-    # Check 3: Panic/Emotional Keywords
-    # Multiple panic indicators or emotional distress signals need for human empathy
-    # Panic can make it difficult for users to provide clear information
-    if user_input:
-        user_lower = user_input.lower()
-        
-        # Count panic keywords
-        # Multiple panic indicators (2+) suggest high stress
-        panic_count = sum(
-            1 for keyword in PANIC_KEYWORDS 
-            if keyword.lower() in user_lower
-        )
-        
-        # Count emotional keywords
-        emotional_count = sum(
-            1 for keyword in EMOTIONAL_KEYWORDS 
-            if keyword.lower() in user_lower
-        )
-        
-        # Escalate if multiple panic indicators
-        # Panic makes it hard to communicate effectively - human needed
-        if panic_count >= 2:
-            human_required = True
-            reason = (
-                f"Multiple panic indicators detected in speech "
-                f"({panic_count} keywords) - human intervention needed"
-            )
-            logger.warning(f"Escalation triggered: {reason}")
-            return {
-                "human_required": True,
-                "reason": reason
-            }
-        
-        # Escalate if emotional distress + panic
-        # Combination of emotional and panic keywords indicates severe distress
-        if emotional_count >= 1 and panic_count >= 1:
-            human_required = True
-            reason = (
-                "Emotional distress and panic indicators detected - "
-                "human empathy and assistance required"
-            )
-            logger.warning(f"Escalation triggered: {reason}")
-            return {
-                "human_required": True,
-                "reason": reason
-            }
-    
-    # Check 4: Explicit Human Help Requests
-    # If user directly asks for human operator, honor the request
-    # This shows user preference for human interaction
-    if user_input:
-        user_lower = user_input.lower()
-        for request in HUMAN_HELP_REQUESTS:
-            if request.lower() in user_lower:
-                human_required = True
-                reason = "User explicitly requested human assistance"
-                logger.warning(f"Escalation triggered: {reason}")
-                return {
-                    "human_required": True,
-                    "reason": reason
-                }
-    
-    # Check 5: Low Progress After Multiple Attempts
-    # Very low completeness after many questions indicates communication difficulty
-    # This could be due to:
-    # - Language barriers
-    # - Technical issues
-    # - User confusion
-    # - Need for more natural conversation flow
-    if completeness < 0.3 and question_count >= 5:
+    # Rule 2: Clarity threshold
+    if clarity_avg < CLARITY_ESCALATION_THRESHOLD:
         human_required = True
-        reason = (
-            f"Low conversation progress (completeness: {completeness:.2f}) "
-            f"after {question_count} questions - human assistance recommended"
-        )
+        reason = f"Low clarity ({clarity_avg:.2f}) below threshold ({CLARITY_ESCALATION_THRESHOLD})"
+        priority = "high"  # Low clarity = high priority for human help
         logger.warning(f"Escalation triggered: {reason}")
         return {
             "human_required": True,
-            "reason": reason
+            "reason": reason,
+            "priority": priority
+        }
+    
+    # Rule 3: Panic persistence (only escalate if panic persists across multiple interactions)
+    # Don't escalate on first panic - allow conversation to continue
+    panic_count = emotion_history.count("panic") if emotion_history else 0
+    # Only escalate if panic detected in last 3+ consecutive interactions
+    recent_panic = sum(1 for e in emotion_history[-3:] if e == "panic") if len(emotion_history) >= 3 else panic_count
+    if recent_panic >= PANIC_PERSISTENCE_THRESHOLD:
+        human_required = True
+        reason = f"Panic detected {recent_panic} times in recent interactions (threshold: {PANIC_PERSISTENCE_THRESHOLD})"
+        priority = "critical"
+        logger.warning(f"Escalation triggered: {reason}")
+        return {
+            "human_required": True,
+            "reason": reason,
+            "priority": priority
+        }
+    
+    # Rule 4: Missing critical fields
+    critical_missing = [f for f in missing_fields if f in CRITICAL_FIELDS]
+    if critical_missing and question_count >= CRITICAL_FIELDS_MISSING_THRESHOLD:
+        human_required = True
+        reason = f"Critical fields missing ({', '.join(critical_missing)}) after {question_count} questions"
+        priority = "high"
+        logger.warning(f"Escalation triggered: {reason}")
+        return {
+            "human_required": True,
+            "reason": reason,
+            "priority": priority
+        }
+    
+    # Rule 5: Immediate danger indicator (Layer 2 field)
+    # If fire spreading, weapon, bleeding, or trapped - escalate immediately
+    if immediate_danger:
+        human_required = True
+        reason = "Immediate danger detected (fire spreading, weapon, bleeding, or trapped)"
+        priority = "critical"
+        logger.warning(f"Escalation triggered: {reason}")
+        return {
+            "human_required": True,
+            "reason": reason,
+            "priority": priority
+        }
+    
+    # Rule 6: Explicit human request
+    if explicit_human_request:
+        human_required = True
+        reason = "User explicitly requested human assistance"
+        priority = "high"
+        logger.warning(f"Escalation triggered: {reason}")
+        return {
+            "human_required": True,
+            "reason": reason,
+            "priority": priority
         }
     
     # No escalation needed
-    # All checks passed - AI can continue handling the conversation
     return {
         "human_required": False,
-        "reason": None
+        "reason": None,
+        "priority": None
     }
 
 
-def check_panic_indicators(user_input: str) -> Dict:
+def detect_explicit_human_request(text: str) -> bool:
     """
-    Check for panic indicators in user input.
+    Detect if user explicitly requests human help.
     
-    Helper function to detect panic/emotional keywords separately.
-    Useful for logging and analysis.
+    This is a deterministic keyword-based check.
     
     Args:
-        user_input: User input text to analyze
+        text: User's transcribed speech
     
     Returns:
-        dict: Panic analysis with keys:
-            - "has_panic": bool - True if panic keywords found
-            - "panic_count": int - Number of panic keywords
-            - "emotional_count": int - Number of emotional keywords
-            - "keywords_found": List[str] - List of found keywords
+        bool: True if explicit human request detected
     """
-    if not user_input:
-        return {
-            "has_panic": False,
-            "panic_count": 0,
-            "emotional_count": 0,
-            "keywords_found": []
-        }
+    if not text:
+        return False
     
-    user_lower = user_input.lower()
-    panic_found = []
-    emotional_found = []
+    text_lower = text.lower()
     
-    # Find panic keywords
-    for keyword in PANIC_KEYWORDS:
-        if keyword.lower() in user_lower:
-            panic_found.append(keyword)
+    # Keywords indicating explicit human request
+    human_request_keywords = [
+        "human", "person", "operator", "dispatcher",
+        "मानव", "व्यक्ति", "ऑपरेटर",
+        "talk to human", "speak to person", "human help",
+        "मानव से बात", "व्यक्ति से बात"
+    ]
     
-    # Find emotional keywords
-    for keyword in EMOTIONAL_KEYWORDS:
-        if keyword.lower() in user_lower:
-            emotional_found.append(keyword)
+    for keyword in human_request_keywords:
+        if keyword in text_lower:
+            logger.debug(f"Explicit human request detected: '{keyword}' in text")
+            return True
     
-    return {
-        "has_panic": len(panic_found) > 0 or len(emotional_found) > 0,
-        "panic_count": len(panic_found),
-        "emotional_count": len(emotional_found),
-        "keywords_found": panic_found + emotional_found
-    }
+    return False

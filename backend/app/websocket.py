@@ -11,7 +11,7 @@ import logging
 from typing import Dict, Optional
 from concurrent.futures import ThreadPoolExecutor
 from fastapi import WebSocket, WebSocketDisconnect
-from app.speech.whisper_stt import transcribe_streaming
+from app.speech.openai_stt import transcribe_streaming
 from app.logic.conversation import get_or_create_session, remove_session
 from app.speech.tts import speak
 from app.models.schemas import IncidentSummary, ErrorResponse
@@ -144,12 +144,34 @@ async def websocket_call_endpoint(websocket: WebSocket):
                         # Whisper transcription is CPU-bound and can take time
                         # Use previous user input as context for better partial transcription
                         previous_text = conversation_manager.get_current_user_input()
-                        transcribed_text = await asyncio.get_event_loop().run_in_executor(
+                        transcription_result = await asyncio.get_event_loop().run_in_executor(
                             _executor,
                             transcribe_streaming,
                             audio_chunk,
                             previous_text
                         )
+                        # `openai_stt.transcribe_streaming` may return either:
+                        # - str (legacy behavior)
+                        # - {"text": str, "status": "ok"|"silence"|"api_error"|"filtered", "confidence": float}
+                        # Keep API contract stable by treating non-ok statuses as "no transcription".
+                        transcribed_text = ""
+                        if isinstance(transcription_result, dict):
+                            status = transcription_result.get("status", "api_error")
+                            transcribed_text = (transcription_result.get("text") or "").strip()
+                            if status != "ok" or not transcribed_text:
+                                logger.warning(
+                                    f"Session {session_id}: Transcription not ok (status={status}, "
+                                    f"confidence={transcription_result.get('confidence', 0.0):.2f})"
+                                )
+                                await websocket.send_json({
+                                    "type": "audio_processed",
+                                    "session_id": session_id,
+                                    "transcribed": False,
+                                    "status": status
+                                })
+                                continue
+                        else:
+                            transcribed_text = (str(transcription_result) if transcription_result else "").strip()
                         
                         if transcribed_text:
                             # Update conversation manager with transcribed text

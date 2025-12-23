@@ -1,0 +1,901 @@
+text,label
+दुर्घटना गंभीर,accident
+भूस्खलन... landslide... help,natural_disaster
+हादसा हो गया,accident
+नदी... river... उफान पर,natural_disaster
+आग लग गई... help me,fire
+Security सुरक्षा चाहिए,crime
+दुर्घटना accident site,accident
+कुछ something गलत है,other
+बारिश... rain... बहुत है,natural_disaster
+मदद चाहिए,natural_disaster
+एम्बुलेंस बुलाओ,medical
+Need help police,crime
+Threat received,crime
+Threat... धमकी... help,crime
+सुरक्षित safe जगह चाहिए,natural_disaster
+तूफान आ रहा,natural_disaster
+घर... जल रहा... fire,fire
+Need security,crime
+Fire out of control,fire
+Assault happening,crime
+बिजली गिरी,natural_disaster
+स्ट्रोक हो गया,medical
+बाढ़ आ गई,natural_disaster
+बचाओ... save... me,other
+Unusual situation,other
+फिक्र concern है,other
+Vehicle crash,accident
+हादसा हो गया,accident
+आग बहुत तेज है,fire
+In trouble,other
+Car accident,accident
+पहाड़ टूटा,natural_disaster
+Respiratory distress,medical
+भूकंप... earthquake... help,natural_disaster
+मिट्टी खिसकी,natural_disaster
+डकैती robbery,crime
+Mudslide occurred,natural_disaster
+Fire emergency... please help,fire
+मरीज... patient... critical,medical
+Help fire,fire
+Doctor चाहिए quickly,medical
+Severe pain,medical
+सुरक्षित जगह चाहिए,natural_disaster
+Ambulance बुलाओ,medical
+Emergency इमरजेंसी है,other
+Earthquake occurred,natural_disaster
+Fire hai... बहुत तेज... help,fire
+Patient... मरीज... बेहोश,medical
+गैस सिलेंडर में आग,fire
+घर में... burglar... help,crime
+चिंता... worry... है,other
+मदद... help... चाहिए,natural_disaster
+Disaster... डिजास्टर... help,natural_disaster
+हमला हुआ,crime
+चोट... injury... गंभीर,medical
+Building is on fire,fire
+बस bus accident,accident
+दुर्घटना... accident... help,accident
+असामान्य unusual है,other
+Medical emergency,medical
+Violence वायलेंस,crime
+Fire hai... बहुत तेज... help,fire
+Severe pain,medical
+Smoke everywhere,fire
+Need security,crime
+Emergency help,natural_disaster
+Heart problem है,medical
+Accident site,accident
+Fire rescue करो,fire
+Motorcycle accident,accident
+सुरक्षित... safe... जगह,natural_disaster
+Disaster डिजास्टर हुआ,natural_disaster
+Fire spreading... help me,fire
+मारपीट हो रही,crime
+मुश्किल है,other
+Cardiac arrest,medical
+जान save करो,medical
+बिल्डिंग में आग,fire
+फिक्र है,other
+Fire... smoke... बचाओ,fire
+Fire emergency... please help,fire
+किचन में आग लगी,fire
+चोरी हो गई,crime
+Rescue needed,natural_disaster
+गाड़ी... vehicle... उलट गई,accident
+क्राइम हुआ,crime
+फिक्र है,other
+Robbery रोबरी हो रही,crime
+आग बहुत... smoke...,fire
+Security threat,crime
+खून... bleeding... बहुत,medical
+Call police,crime
+सुरक्षा चाहिए,crime
+मुझे बचाओ आग से,fire
+दिल की बीमारी,medical
+सुनामी आ रही,natural_disaster
+टक्कर collision हुई,accident
+Crime... क्राइम... help,crime
+टक्कर collision लगी,accident
+लूट robbery हो रही,crime
+दुर्घटना accident हुई,accident
+बस accident,accident
+लूटपाट looting हो रही,crime
+कुछ something हो रहा,other
+दुर्घटना accident site,accident
+Stroke... attack... help,medical
+कुछ something हो रहा,other
+दर्द बहुत pain hai,medical
+बेहोश हो गया,medical
+Patient बेहोश है,medical
+Medical... emergency... help,medical
+बुखार है,medical
+Lightning struck,natural_disaster
+चोट injury लगी,medical
+हादसा... help... quickly,accident
+सहायता assistance चाहिए,other
+जान save करो,medical
+Emergency situation,other
+Concerned,other
+Attack on person,crime
+Medical emergency,medical
+आग बुझाओ quickly,fire
+Assault... हमला... help,crime
+आग निकल रही है,fire
+Difficulty,other
+Truck crash,accident
+crash हो गया,accident
+Fire spreading quickly,fire
+Fire started,fire
+खून... bleeding... बहुत,accident
+Save me,other
+जल्दी help चाहिए,other
+Gas में fire लगी,fire
+Head injury हुआ,medical
+Intersection crash,accident
+Gas cylinder fire,fire
+Traffic accident,accident
+हादसा... help... quickly,accident
+Danger खतरा है,crime
+समस्या... problem... है,other
+अपराध... crime... हो रहा,crime
+Violence occurring,crime
+मरीज की हालत खराब,medical
+Armed robbery,crime
+दर्द... pain... बहुत है,medical
+Danger खतरा है,crime
+Fire hai... बहुत बड़ी... help,fire
+Gun shown,crime
+मदद चाहिए,natural_disaster
+पानी... water... बहुत है,natural_disaster
+आग control से बाहर,fire
+मिट्टी खिसकी,natural_disaster
+Stroke... attack... help,medical
+Highway accident,accident
+Difficulty,other
+दुर्घटना गंभीर,accident
+चिंता है,other
+पिस्तौल gun दिखाई,crime
+Emergency... इमरजेंसी... help,other
+प्राकृतिक natural disaster,natural_disaster
+Crash हो गया serious,accident
+डिजास्टर हुआ,natural_disaster
+जल्दी... quick... help,other
+बचाओ... save... quickly,accident
+Head injury,medical
+गाड़ी उलट गई,accident
+Fever... बुखार... help,medical
+दुर्घटना... accident... serious,accident
+Fire alarm,fire
+पहाड़... mountain... टूटा,natural_disaster
+दुर्घटना accident हुई,accident
+घर... जल रहा... fire,fire
+Ambulance... जल्दी... please,medical
+Bus accident,accident
+Violence... हिंसा... बहुत,crime
+ट्रक crash,accident
+Dangerous situation,crime
+जल्दी quick help चाहिए,other
+Injury occurred,accident
+Broken bone,medical
+पानी water बहुत है,natural_disaster
+दुर्घटना multiple vehicles,accident
+सिर में चोट,medical
+चिंता worry है,other
+Scared,other
+Fire brigade बुलाओ,fire
+Fire in apartment,fire
+Bleeding heavily,medical
+खून bleeding बह रहा,accident
+टक्कर... collision... गंभीर,accident
+परेशानी... trouble... है,other
+Security सुरक्षा चाहिए,crime
+Nature's fury,natural_disaster
+Trauma case,medical
+High fever,medical
+मरीज critical है,medical
+खतरा है,other
+लूट लिया,crime
+मदद चाहिए,other
+स्मोक बहुत है,fire
+आग फैल रही है,fire
+बचाओ save quickly,accident
+Crime क्राइम हुआ,crime
+घर में burglar,crime
+दिल... attack... help,medical
+Medical... emergency... help,medical
+मरीज बेहोश है,medical
+Threat... धमकी... help,crime
+Fire help चाहिए,fire
+चोरी... theft... help,crime
+अजीब strange लग रहा,other
+पहाड़ mountain टूटा,natural_disaster
+Building is on fire,fire
+पिस्तौल दिखाई,crime
+Theft occurred,crime
+Building में fire,fire
+Fire नहीं बुझ रही,fire
+बिजली... lightning... गिरी,natural_disaster
+Gas cylinder fire,fire
+जान बचाओ,medical
+आग नहीं बुझ रही,fire
+अपराध हो रहा,crime
+Trouble here,other
+Fire नहीं बुझ रही,fire
+बारिश... rain... बहुत है,natural_disaster
+मारपीट fight है,crime
+बाढ़ flood आ गई,natural_disaster
+आग बुझाओ... जल्दी... please,fire
+Assault हमला हुआ,crime
+Theft occurred,crime
+Fire... smoke... बचाओ,fire
+नदी उफान पर,natural_disaster
+दुर्घटना स्थल,accident
+भूस्खलन हुआ,natural_disaster
+सुरक्षित... safe... जगह,natural_disaster
+Knife attack,crime
+Stroke victim,medical
+Security threat,crime
+Lightning struck,natural_disaster
+Police... पुलिस... quickly,crime
+In trouble,other
+तूफान बहुत तेज,natural_disaster
+Fire बहुत बड़ी है,fire
+Attack आया heart का,medical
+Something wrong,other
+Kitchen caught fire,fire
+एम्बुलेंस बुलाओ,accident
+मोटरसाइकिल motorcycle accident,accident
+चोट injury लगी,medical
+Fire department call करो,fire
+Burglary in house,crime
+गाड़ी car crash हो गई,accident
+फायर ब्रिगेड बुलाओ,fire
+Unconscious हो गया,medical
+Collision occurred,accident
+दिल का दौरा,medical
+Hard situation,other
+Heart attack आया,medical
+रोबरी हो रही,crime
+Security... सुरक्षा... चाहिए,crime
+Attack on person,crime
+Robbery... रोबरी... please,crime
+मदद help चाहिए,other
+इमरजेंसी है,other
+दिल... attack... help,medical
+गिर गया fell down,accident
+चाकू knife से हमला,crime
+Disaster डिजास्टर हुआ,natural_disaster
+Criminal... क्रिमिनल... danger,crime
+इवैक्यूएशन चाहिए,natural_disaster
+आग फैल रही... quickly help,fire
+जान बचाओ,medical
+Burglary in house,crime
+घर में चोर,crime
+Heavy rainfall,natural_disaster
+मुसीबत में हूं,other
+तूफान... storm... help,natural_disaster
+कुदरती हादसा,natural_disaster
+टक्कर हुई,accident
+Storm approaching,natural_disaster
+पिस्तौल... gun... help,crime
+Ambulance... please... जल्दी,medical
+सीने में दर्द,medical
+Fire department call करो,fire
+Threat धमकी मिली,crime
+मदद... help... चाहिए,natural_disaster
+परेशानी है,other
+मुझे बचाओ आग से,fire
+डकैती... robbery... please,crime
+Heart problem है,medical
+भूकंप आया,natural_disaster
+आग लगी... quickly... बचाओ,fire
+Need ambulance,accident
+अपराध हो रहा,crime
+प्राकृतिक आपदा,natural_disaster
+मदद help चाहिए,natural_disaster
+कुदरती हादसा,natural_disaster
+कुछ... something... गलत,other
+Evacuation... इवैक्यूएशन... please,natural_disaster
+चोरी theft हो गई,crime
+River overflowing,natural_disaster
+Chest pain,medical
+बिल्डिंग में आग,fire
+वायलेंस है,crime
+असामान्य unusual है,other
+बचाओ save जल्दी,natural_disaster
+Fight breaking out,crime
+बस bus accident,accident
+खून बह रहा है,medical
+आग... आग... help,fire
+मदद help करो,other
+Fire in my house,fire
+Assault... हमला... help,crime
+डर लग रहा,other
+अटैक आया,medical
+खतरा है,crime
+Multiple vehicles,accident
+Truck crash,accident
+Natural... प्राकृतिक... emergency,natural_disaster
+तूफान बहुत तेज,natural_disaster
+कुछ... something... गलत,other
+हादसा accident हो गया,accident
+Crash... हो गया... help,accident
+Smoke everywhere,fire
+Head on collision,accident
+मुश्किल hard है,other
+Disaster happened,natural_disaster
+Call doctor,medical
+मेरा घर... fire... बचाओ,fire
+लूटपाट looting हो रही,crime
+सांस नहीं आ रही,medical
+Critical condition,medical
+आग निकल रही है,fire
+Fire! Fire! बचाओ,fire
+एम्बुलेंस बुलाओ,accident
+Ambulance... please... जल्दी,medical
+House burning,fire
+Criminal क्रिमिनल,crime
+सहायता चाहिए,other
+टक्कर... collision... help,accident
+मेरा घर... fire... बचाओ,fire
+Head... सिर... चोट,medical
+मदद... help... please,other
+सुनामी tsunami आ रही,natural_disaster
+Road accident,accident
+जान... life... बचाओ,medical
+डकैती हो रही,crime
+Dangerous situation,crime
+Fire बहुत बड़ी है,fire
+गाड़ी car crash हो गई,accident
+अपराध crime हो रहा,crime
+गैस सिलेंडर में आग,fire
+आग फैल रही है,fire
+मेरा घर जल रहा है,fire
+समस्या... problem... है,other
+Bus accident,accident
+सहायता... assistance... चाहिए,other
+भूस्खलन landslide हुआ,natural_disaster
+हमला assault हुआ,crime
+Unconscious हो गया,medical
+भूस्खलन हुआ,natural_disaster
+Fire spreading... help me,fire
+Medical help चाहिए,medical
+Emergency situation,other
+Stroke victim,medical
+Ambulance जल्दी बुलाओ,medical
+Fire department call,fire
+कुछ गलत है,other
+Save life,medical
+Fire hai... बहुत बड़ी... help,fire
+बचाओ जल्दी,accident
+Crime happening,crime
+सुरक्षित safe जगह चाहिए,natural_disaster
+डिजास्टर हुआ,natural_disaster
+मरीज की हालत खराब,medical
+Doctor चाहिए quickly,medical
+ट्रक... truck... accident,accident
+हादसा... accident... help,accident
+Break in,crime
+Patient collapsed,medical
+खतरा... danger... help,other
+Earthquake occurred,natural_disaster
+Need ambulance,medical
+Gas cylinder fire,fire
+Head... सिर... चोट,medical
+बाढ़ flood आ गई,natural_disaster
+Medical emergency है,medical
+Hard situation,other
+बचाओ,other
+Ambulance एम्बुलेंस बुलाओ,accident
+कुदरती natural हादसा,natural_disaster
+कार दुर्घटना,accident
+बारिश rain बहुत है,natural_disaster
+Problem here,other
+Motorcycle accident,accident
+Something happening,other
+Fire emergency help,fire
+High fever,medical
+Emergency इमरजेंसी है,other
+Collision occurred,accident
+डर scared लग रहा,other
+दुर्घटना... accident... help,accident
+आग लग गई मदद करो,fire
+गिर गया fell down,accident
+चोरी... theft... help,crime
+बिजली गिरी,natural_disaster
+Fire started,fire
+चोट लगी,accident
+घर में आग लगी,fire
+खून bleeding है,medical
+टक्कर लगी,accident
+Smoke बहुत है,fire
+Mountain collapsed,natural_disaster
+गाड़ी... car... crash,accident
+Medical help चाहिए,medical
+Landslide happened,natural_disaster
+आग लग गई... help me,fire
+Fire in my house,fire
+चोट... injury... गंभीर,accident
+प्राकृतिक natural disaster,natural_disaster
+Can't breathe,medical
+कुछ गलत है,other
+मिट्टी mud खिसकी,natural_disaster
+आग control से बाहर,fire
+पानी... water... बहुत है,natural_disaster
+मदद करो,other
+हमला... attack... help,crime
+Crime क्राइम हुआ,crime
+मुसीबत में हूं,other
+गाड़ी उलट गई,accident
+Multiple vehicles,accident
+Landslide happened,natural_disaster
+असामान्य... unusual... help,other
+भूकंप earthquake आया,natural_disaster
+बस accident,accident
+सांस... नहीं... breathing,medical
+टूटी हड्डी,medical
+पानी water बहुत है,natural_disaster
+लूट लिया,crime
+मिट्टी... mud... खिसकी,natural_disaster
+Unusual situation,other
+मोटरसाइकिल... motorcycle... help,accident
+Need fire brigade,fire
+असामान्य है,other
+आग फैल रही... quickly help,fire
+हादसा हो गया,accident
+Security... सुरक्षा... चाहिए,crime
+अटैक आया,medical
+Smoke बहुत है,fire
+भूकंप earthquake आया,natural_disaster
+तकलीफ difficulty है,other
+Heart attack,medical
+Building में fire,fire
+Fire brigade बुलाओ,fire
+Fire out of control,fire
+Danger present,other
+डर... scared... help,other
+डॉक्टर चाहिए,medical
+Can't breathe,medical
+Come quickly,other
+Gas में fire लगी,fire
+अपराध... crime... हो रहा,crime
+बेहोश हो गया,medical
+Worried,other
+Heart attack आया,medical
+Bleeding heavily,medical
+Help me,other
+हमला assault हुआ,crime
+Ambulance बुलाओ,medical
+Robbery... रोबरी... please,crime
+गाड़ी vehicle उलट गई,accident
+चिंता... worry... है,other
+Emergency help,natural_disaster
+Flood coming,natural_disaster
+Fever... बुखार... help,medical
+Need quick help,other
+हिंसा हो रही,crime
+Help fire,fire
+खून बह रहा है,medical
+Problem here,other
+असामान्य है,other
+आग spread हो रही है,fire
+स्मोक बहुत है,fire
+बुखार है,medical
+पानी बहुत है,natural_disaster
+Fire! Fire! बचाओ,fire
+हादसा serious हो गया,accident
+Threat धमकी मिली,crime
+आग बुझाओ जल्दी,fire
+फिक्र... concern... help,other
+Critical condition,medical
+Flood coming,natural_disaster
+सहायता... assistance... चाहिए,other
+चोट लग गई,medical
+Assault हमला हुआ,crime
+Fire hai... बहुत बड़ी... help,fire
+Stroke हो गया,medical
+पहाड़ mountain टूटा,natural_disaster
+Smoke everywhere,fire
+Call police,crime
+गाड़ी... car... crash,accident
+Feels strange,other
+टक्कर... collision... गंभीर,accident
+हादसा... accident... help,accident
+Break in,crime
+Fire department call करो,fire
+बहुत धुआं है,fire
+Serious crash,accident
+टक्कर collision लगी,accident
+नदी उफान पर,natural_disaster
+Storm approaching,natural_disaster
+मोटरसाइकिल accident,accident
+जल्दी quickly आओ,other
+Evacuation... इवैक्यूएशन... please,natural_disaster
+Ambulance... एम्बुलेंस... please,accident
+फिक्र concern है,other
+प्रकृति का कहर,natural_disaster
+Fire rescue needed,fire
+असल्ट हुआ,crime
+Traffic accident,accident
+इवैक्यूएशन चाहिए,natural_disaster
+Crash हो गया serious,accident
+चोरी हो गई,crime
+जल्दी quickly आओ,other
+Mountain collapsed,natural_disaster
+पुलिस बुलाओ,crime
+प्राकृतिक आपदा,natural_disaster
+बचाओ... save... quickly,natural_disaster
+Fire बहुत तेज है,fire
+गाड़ी crash हो गई,accident
+Head injury,medical
+सांस नहीं आ रही breathing,medical
+जल्दी help चाहिए,other
+मोटरसाइकिल... motorcycle... help,accident
+Patient collapsed,medical
+गाड़ी... vehicle... उलट गई,accident
+Need fire brigade,fire
+Cyclone coming,natural_disaster
+खून bleeding बह रहा,accident
+Ambulance जल्दी बुलाओ,medical
+सांस... नहीं... breathing,medical
+Fell down,accident
+तूफान cyclone बहुत तेज,natural_disaster
+चोरी theft हो गई,crime
+Evacuation इवैक्यूएशन चाहिए,natural_disaster
+आग spread हो रही है,fire
+Emergency... इमरजेंसी... help,other
+नदी river उफान पर,natural_disaster
+बस... bus... crash,accident
+बहुत धुआं है,fire
+खून बह रहा,accident
+Accident site,accident
+दर्द... pain... बहुत है,medical
+Need safe place,natural_disaster
+Natural disaster,natural_disaster
+लूट... robbery... हो रही,crime
+Violence हिंसा है,crime
+Heart... दिल... problem,medical
+डकैती... robbery... please,crime
+आग... smoke... help,fire
+Fire brigade... जल्दी बुलाओ,fire
+Water level rising,natural_disaster
+Fever बहुत है,medical
+Unconscious person,medical
+लूट... robbery... हो रही,crime
+Something happening,other
+आग control से बाहर,fire
+Save life,medical
+पिस्तौल gun दिखाई,crime
+मदद चाहिए,other
+Fire spreading quickly,fire
+Fire spreading quickly,fire
+प्रकृति nature का कहर,natural_disaster
+Head injury हुआ,medical
+Respiratory distress,medical
+Assault happening,crime
+Road accident,accident
+खतरा है,other
+इमरजेंसी है,other
+दिल का दौरा,medical
+Criminal activity,crime
+Violence हिंसा है,crime
+Fire rescue needed,fire
+भूस्खलन... landslide... help,natural_disaster
+Ambulance... एम्बुलेंस... please,accident
+Bleeding,accident
+Police पुलिस बुलाओ,crime
+परेशानी... trouble... है,other
+Disaster... डिजास्टर... help,natural_disaster
+आग नहीं बुझ रही,fire
+Knife attack,crime
+जान... life... बचाओ,medical
+House burning,fire
+Accident गंभीर है,accident
+Doctor... डॉक्टर... quickly,medical
+अजीब... strange... लग रहा,other
+सुरक्षित जगह चाहिए,natural_disaster
+Looting happening,crime
+आग बुझाओ quickly,fire
+Trouble here,other
+Trauma case,medical
+चाकू से हमला,crime
+Broken bone,medical
+Police पुलिस बुलाओ,crime
+वायलेंस है,crime
+लूटपाट... looting... help,crime
+परेशानी है,other
+Need help police,crime
+Car accident,accident
+Rollover accident,accident
+Nature's fury,natural_disaster
+डकैती robbery,crime
+Armed robbery,crime
+धमकी मिली,crime
+टक्कर हुई,accident
+जल्दी आओ,other
+Need ambulance,accident
+हादसा accident हो गया,accident
+मेडिकल इमरजेंसी,medical
+Water level rising,natural_disaster
+सुनामी... tsunami... warning,natural_disaster
+बाढ़ आ गई,natural_disaster
+Unconscious person,medical
+तूफान... cyclone... बहुत तेज,natural_disaster
+मदद help चाहिए,other
+ट्रक truck crash,accident
+सीने में दर्द,medical
+डर लग रहा,other
+बचाओ... save... me,other
+खून... bleeding... बहुत,medical
+तकलीफ है,other
+आग बहुत... smoke...,fire
+रोबरी हो रही,crime
+पानी बहुत है,natural_disaster
+चोट लग गई,medical
+दर्द बहुत pain hai,medical
+मुसीबत trouble में हूं,other
+अपराध crime हो रहा,crime
+Help fire,fire
+कुदरती natural हादसा,natural_disaster
+खून बह रहा,accident
+एम्बुलेंस बुलाओ,medical
+मदद... help... करो,other
+Feels strange,other
+दर्द बहुत है,medical
+Patient बेहोश है,medical
+सांस नहीं आ रही breathing,medical
+Disaster happened,natural_disaster
+Fire in apartment,fire
+accident हुआ,accident
+मेरा घर जल रहा है,fire
+Fire help चाहिए,fire
+बचाओ save जल्दी,natural_disaster
+डर scared लग रहा,other
+Fever बहुत है,medical
+चाकू... knife... danger,crime
+सहायता assistance चाहिए,other
+Need evacuation,natural_disaster
+Threat received,crime
+बस... bus... crash,accident
+चोट लगी,accident
+Violence... हिंसा... बहुत,crime
+Tsunami warning,natural_disaster
+Need assistance,other
+accident हुआ,accident
+Scared,other
+लूट robbery हो रही,crime
+Kitchen caught fire,fire
+डकैती हो रही,crime
+Fire... smoke... बचाओ,fire
+अजीब लग रहा,other
+Worried,other
+चोट injury लगी,accident
+Accident गंभीर है,accident
+सुरक्षा चाहिए,crime
+क्रिमिनल है,crime
+बेहोश... unconscious... help,medical
+मुझे बचाओ आग से,fire
+लूटपाट हो रही,crime
+आग... आग... help,fire
+हादसा हो गया,accident
+Crime happening,crime
+अस्पताल ले चलो,medical
+नदी... river... उफान पर,natural_disaster
+भूस्खलन landslide हुआ,natural_disaster
+Rescue needed,natural_disaster
+मेरा घर fire में,fire
+Fire बहुत तेज है,fire
+प्रकृति nature का कहर,natural_disaster
+गिर गया... fell... help,accident
+कुछ... something... हो रहा,other
+सुनामी... tsunami... warning,natural_disaster
+बचाओ,other
+जल्दी... quickly... आओ,other
+बिजली lightning गिरी,natural_disaster
+Cyclone coming,natural_disaster
+Need help,other
+Help me,other
+अजीब लग रहा,other
+Stroke हो गया,medical
+तूफान storm आ रहा,natural_disaster
+तकलीफ है,other
+मुश्किल है,other
+मुसीबत... trouble... में हूं,other
+समस्या problem है,other
+Fell down,accident
+मोटरसाइकिल accident,accident
+टक्कर लगी,accident
+Fire emergency hai,fire
+crash हो गया,accident
+Highway accident,accident
+खतरा danger है,other
+मरीज critical है,medical
+गाड़ी crash हो गई,accident
+समस्या है,other
+गिर गया,accident
+आग लग गई मदद करो,fire
+Intersection crash,accident
+ट्रक... truck... accident,accident
+दुर्घटना हुई,accident
+टक्कर collision हुई,accident
+Robbery in progress,crime
+Chest pain,medical
+Heart... दिल... problem,medical
+कुछ हो रहा,other
+बाढ़... flood... आ रही,natural_disaster
+Violence वायलेंस,crime
+परेशानी trouble है,other
+Cardiac arrest,medical
+घर में चोर,crime
+आग... smoke... help,fire
+मुसीबत trouble में हूं,other
+Tsunami warning,natural_disaster
+Fire emergency hai,fire
+घर में burglar,crime
+Ambulance... जल्दी... please,medical
+चाकू knife से हमला,crime
+आग लगी... quickly... बचाओ,fire
+Injury occurred,accident
+Call doctor,medical
+कार... car... accident,accident
+लूटपाट हो रही,crime
+बचाओ save quickly,accident
+सांस नहीं आ रही,medical
+प्रकृति का कहर,natural_disaster
+Need fire brigade,fire
+मदद... help... करो,other
+बचाओ... save... quickly,natural_disaster
+मिट्टी... mud... खिसकी,natural_disaster
+आग बुझाओ जल्दी,fire
+असल्ट हुआ,crime
+Fire department call,fire
+कार car दुर्घटना,accident
+मुसीबत... trouble... में हूं,other
+Mudslide occurred,natural_disaster
+मारपीट... fight... बहुत,crime
+तूफान cyclone बहुत तेज,natural_disaster
+मारपीट... fight... बहुत,crime
+सुनामी tsunami आ रही,natural_disaster
+आग निकल रही है,fire
+Criminal activity,crime
+ट्रक truck crash,accident
+दुर्घटना हुई,accident
+आग बहुत तेज है,fire
+मरीज बेहोश है,medical
+गाड़ी vehicle उलट गई,accident
+कार... car... accident,accident
+Natural... प्राकृतिक... emergency,natural_disaster
+आग लग गई मदद करो,fire
+कुछ something गलत है,other
+हिंसा हो रही,crime
+तूफान... cyclone... बहुत तेज,natural_disaster
+आग फैल रही... quickly help,fire
+बारिश rain बहुत है,natural_disaster
+दिल की बीमारी,medical
+आग लग गई है,fire
+Chest में दर्द,medical
+Evacuation इवैक्यूएशन चाहिए,natural_disaster
+टूटी हड्डी,medical
+चाकू से हमला,crime
+समस्या है,other
+समस्या problem है,other
+पहाड़ टूटा,natural_disaster
+Violence occurring,crime
+हमला... attack... help,crime
+अजीब... strange... लग रहा,other
+Crime... क्राइम... help,crime
+River overflowing,natural_disaster
+डॉक्टर चाहिए,medical
+खून bleeding है,medical
+Danger present,other
+Rollover accident,accident
+Fire in my house,fire
+Pedestrian hit,accident
+लूटपाट... looting... help,crime
+Robbery रोबरी हो रही,crime
+आग नहीं बुझ रही,fire
+पिस्तौल... gun... help,crime
+धमकी मिली,crime
+जल्दी... quickly... आओ,other
+भूकंप आया,natural_disaster
+मेरा घर fire में,fire
+Need evacuation,natural_disaster
+मारपीट हो रही,crime
+खतरा... danger... help,other
+Attack आया heart का,medical
+Heart attack,medical
+Building is on fire,fire
+Climate emergency,natural_disaster
+बारिश बहुत है,natural_disaster
+फायर ब्रिगेड बुलाओ,fire
+तकलीफ difficulty है,other
+डर... scared... help,other
+मदद करो,other
+चिंता worry है,other
+तूफान storm आ रहा,natural_disaster
+Chest... सीने में... दर्द,medical
+Pedestrian hit,accident
+Robbery in progress,crime
+बाढ़... flood... आ रही,natural_disaster
+हादसा serious हो गया,accident
+नदी river उफान पर,natural_disaster
+सहायता चाहिए,other
+मोटरसाइकिल motorcycle accident,accident
+Fire rescue करो,fire
+खतरा danger है,other
+चोट... injury... गंभीर,accident
+क्रिमिनल है,crime
+Climate emergency,natural_disaster
+दुर्घटना multiple vehicles,accident
+Crash... हो गया... help,accident
+Patient... मरीज... बेहोश,medical
+मरीज... patient... critical,medical
+Criminal क्रिमिनल,crime
+परेशानी trouble है,other
+Fire emergency help,fire
+Police... पुलिस... quickly,crime
+सिर में चोट,medical
+Save me,other
+टक्कर... collision... help,accident
+पहाड़... mountain... टूटा,natural_disaster
+बचाओ save करो,other
+बिजली... lightning... गिरी,natural_disaster
+Criminal... क्रिमिनल... danger,crime
+Fire नहीं बुझ रही,fire
+आग बुझाओ... जल्दी... please,fire
+घर में... burglar... help,crime
+Bleeding,accident
+फिक्र... concern... help,other
+घर में आग लगी,fire
+Head on collision,accident
+तूफान आ रहा,natural_disaster
+चाकू... knife... danger,crime
+Fire started,fire
+सुनामी आ रही,natural_disaster
+कुछ... something... हो रहा,other
+असामान्य... unusual... help,other
+मेरा घर... fire... बचाओ,fire
+आग लग गई fire hai,fire
+क्राइम हुआ,crime
+बचाओ जल्दी,accident
+स्ट्रोक हो गया,medical
+Need ambulance,medical
+Fire alarm,fire
+कार car दुर्घटना,accident
+Something wrong,other
+बचाओ... save... quickly,accident
+आग लग गई है,fire
+Fire brigade... जल्दी बुलाओ,fire
+खून... bleeding... बहुत,accident
+आग लग गई fire hai,fire
+तूफान... storm... help,natural_disaster
+मदद help करो,other
+Vehicle crash,accident
+दुर्घटना स्थल,accident
+किचन में आग लगी,fire
+Come quickly,other
+बचाओ save करो,other
+गिर गया,accident
+Need medical help,medical
+Concerned,other
+Gun shown,crime
+बेहोश... unconscious... help,medical
+पुलिस बुलाओ,crime
+Need quick help,other
+बचाओ जल्दी,natural_disaster
+Need medical help,medical
+चिंता है,other
+मुश्किल hard है,other
+Medical emergency है,medical
+Fire बहुत बड़ी है,fire
+जल्दी... quick... help,other
+Need help,other
+Chest में दर्द,medical
+कार दुर्घटना,accident
+Heavy rainfall,natural_disaster
+बिजली lightning गिरी,natural_disaster
+घर में आग लगी,fire
+मेरा घर fire में,fire
+बचाओ जल्दी,natural_disaster

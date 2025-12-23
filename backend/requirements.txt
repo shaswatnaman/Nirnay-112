@@ -2,8 +2,9 @@ fastapi           # Web framework for API and WebSocket
 uvicorn           # ASGI server to run FastAPI
 websockets        # WebSocket protocol support
 numpy             # Audio processing
-torch             # Required for Whisper ML model
-openai-whisper    # Speech-to-text model
+openai            # OpenAI API client for Speech-to-Text
 python-multipart  # Handling multipart uploads
 gtts              # Text-to-speech conversion for Hindi
 pydantic          # Data validation and schemas
+python-dotenv     # Load environment variables from .env file
+scikit-learn      # Machine learning library for intent classification

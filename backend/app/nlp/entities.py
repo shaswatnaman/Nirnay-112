@@ -78,6 +78,8 @@ LOCATION_KEYWORDS = {
     
     # Common location names (examples - can be expanded)
     "दिल्ली": 0.9,  # Delhi
+    "new delhi": 0.9,  # New Delhi
+    "नई दिल्ली": 0.9,  # New Delhi (Hindi)
     "मुंबई": 0.9,  # Mumbai
     "बंगलौर": 0.9,  # Bangalore
     "चेन्नई": 0.9,  # Chennai
@@ -87,6 +89,8 @@ LOCATION_KEYWORDS = {
     "जयपुर": 0.9,  # Jaipur
     "लखनऊ": 0.9,  # Lucknow
     "कानपुर": 0.9,  # Kanpur
+    "railway station": 0.8,  # Railway station
+    "रेलवे स्टेशन": 0.8,  # Railway station (Hindi)
 }
 
 # Urgency indicators (Hindi, English, Hinglish)
@@ -185,14 +189,18 @@ INCIDENT_TYPE_PATTERNS = {
 }
 
 # Name patterns (common name indicators and patterns)
+# Support both Hindi and English indicators in English transcripts
 NAME_INDICATORS = [
-    r"मेरा नाम",  # my name
-    r"नाम है",  # name is
-    r"मैं",  # I (followed by name)
-    r"name is",
-    r"i am",
-    r"call me",
-    r"मुझे कहते हैं",  # they call me
+    r"मेरा नाम",  # my name (Hindi)
+    r"नाम है",  # name is (Hindi)
+    r"मैं",  # I (followed by name, Hindi)
+    r"name is",  # name is (English)
+    r"my name is",  # my name is (English)
+    r"i am",  # I am (English)
+    r"i'm",  # I'm (English)
+    r"call me",  # call me (English)
+    r"मुझे कहते हैं",  # they call me (Hindi)
+    r"this is",  # this is (English, e.g., "this is Rahul")
 ]
 
 # Common Indian name patterns (first names)
@@ -254,14 +262,18 @@ def extract_name(text: str) -> Tuple[Optional[str], float]:
     confidence = 0.0
     
     # Pattern 1: Explicit name indicators
-    # "मेरा नाम X है" or "name is X"
+    # "मेरा नाम X है" or "name is X" or "my name is X" or "I am X"
+    # Support both Hindi and English names in English transcripts
     for indicator in NAME_INDICATORS:
-        pattern = rf"{indicator}\s+([a-z]+(?:\s+[a-z]+)?)"
-        match = re.search(pattern, normalized, re.IGNORECASE)
+        # Pattern for Hindi/English names: allow Unicode characters (Hindi) and ASCII
+        # Handle English transcripts: "my name is Rahul" or "I am Rahul"
+        pattern = rf"{indicator}\s+([\u0900-\u097F\w]+(?:\s+[\u0900-\u097F\w]+)?)"
+        match = re.search(pattern, normalized, re.IGNORECASE | re.UNICODE)
         if match:
             potential_name = match.group(1).strip()
-            if len(potential_name) > 1:  # Valid name length
-                name = potential_name.title()
+            # Filter out common words that might be captured
+            if len(potential_name) > 1 and potential_name.lower() not in ["is", "am", "are", "the", "a", "an"]:
+                name = potential_name  # Keep original case/script
                 confidence = 0.9
                 logger.debug(f"Name extracted via indicator: {name}")
                 return name, confidence
@@ -317,15 +329,19 @@ def extract_location(text: str) -> Tuple[Optional[str], float]:
     confidence = 0.0
     
     # Pattern 1: Location keywords with following text
-    # "में X", "near X", "at X"
+    # "में X", "near X", "at X", "in X", "at railway station X"
+    # Support both Hindi and English location names
+    # Handle English transcripts with Hindi words mixed in
     for keyword, weight in LOCATION_KEYWORDS.items():
-        # Pattern: keyword followed by location name
-        pattern = rf"{re.escape(keyword)}\s+([a-z\s]+?)(?:\s|$|,|\.)"
-        match = re.search(pattern, normalized, re.IGNORECASE)
+        # Pattern: keyword followed by location name (Hindi Unicode + English + spaces)
+        # More flexible pattern to capture locations in English transcripts
+        pattern = rf"{re.escape(keyword)}\s+([\u0900-\u097F\w\s]+?)(?:\s|$|,|\.|!|\?)"
+        match = re.search(pattern, normalized, re.IGNORECASE | re.UNICODE)
         if match:
             potential_location = match.group(1).strip()
-            if len(potential_location) > 1:
-                location = potential_location.title()
+            # Filter out very short or common words
+            if len(potential_location) > 2 and potential_location.lower() not in ["the", "a", "an", "is", "are", "was", "were"]:
+                location = potential_location  # Keep original case/script
                 confidence = weight
                 logger.debug(f"Location extracted via keyword '{keyword}': {location}")
                 return location, confidence
@@ -342,19 +358,35 @@ def extract_location(text: str) -> Tuple[Optional[str], float]:
                 return location, confidence
     
     # Pattern 3: Common location patterns
-    # "X road", "X street", "X market"
+    # "X road", "X street", "X market", "railway station X", "X station"
+    # Handle English transcripts with location names
     location_patterns = [
-        r"([a-z\s]+?)\s+(road|street|lane|avenue|market|bazar|मार्केट|बाजार|सड़क|रोड)",
-        r"(road|street|lane|avenue|market|bazar|मार्केट|बाजार|सड़क|रोड)\s+([a-z\s]+?)",
+        r"([\u0900-\u097F\w\s]+?)\s+(road|street|lane|avenue|market|bazar|station|मार्केट|बाजार|सड़क|रोड|स्टेशन)",
+        r"(road|street|lane|avenue|market|bazar|station|railway station|मार्केट|बाजार|सड़क|रोड|स्टेशन|रेलवे स्टेशन)\s+([\u0900-\u097F\w\s]+?)",
+        r"(railway|रेलवे)\s+(station|स्टेशन)\s+([\u0900-\u097F\w\s]+?)",  # "railway station New Delhi"
+        r"([\u0900-\u097F\w\s]+?)\s+(railway|रेलवे)\s+(station|स्टेशन)",  # "New Delhi railway station"
+        r"(at|in|near|beside|behind|in front of)\s+([\u0900-\u097F\w\s]+?)\s+(railway|रेलवे)?\s*(station|स्टेशन)?",  # "at New Delhi railway station"
+        r"(railway|रेलवे)\s+(station|स्टेशन)\s+(of|in|at)?\s*([\u0900-\u097F\w\s]+?)",  # "railway station of New Delhi"
     ]
     
     for pattern in location_patterns:
-        match = re.search(pattern, normalized, re.IGNORECASE)
+        match = re.search(pattern, normalized, re.IGNORECASE | re.UNICODE)
         if match:
-            potential_location = (match.group(1) or match.group(2)).strip()
-            if len(potential_location) > 1:
-                location = potential_location.title()
-                confidence = 0.6
+            # Handle different group positions (some patterns have location in group 1, others in group 2 or 3)
+            potential_location = None
+            skip_words = ["road", "street", "lane", "avenue", "market", "bazar", "station", "railway", "मार्केट", "बाजार", "सड़क", "रोड", "स्टेशन", "रेलवे", "रेलवे स्टेशन"]
+            for i in range(1, len(match.groups()) + 1):
+                group = match.group(i)
+                if group and group.strip() and group.strip().lower() not in [w.lower() for w in skip_words]:
+                    # Check if it's a meaningful location (not just a single common word)
+                    words = group.strip().split()
+                    if len(words) > 0:
+                        potential_location = group.strip()
+                        break
+            
+            if potential_location and len(potential_location) > 1:
+                location = potential_location  # Keep original case/script
+                confidence = 0.7
                 logger.debug(f"Location extracted via pattern: {location}")
                 return location, confidence
     

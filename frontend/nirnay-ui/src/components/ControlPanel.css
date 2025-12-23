@@ -1,0 +1,113 @@
+/* ControlPanel component styles - Light Theme */
+
+.control-panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.control-panel-header {
+  padding: 12px 16px;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.control-panel-header h3 {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.control-buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  padding: 16px;
+}
+
+.control-button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.control-button:hover:not(:disabled) {
+  background: var(--bg-panel);
+  border-color: var(--border-subtle);
+}
+
+.control-button:active:not(:disabled) {
+  background: var(--bg-elevated);
+}
+
+.control-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button-text {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.button-escalate {
+  border-color: var(--color-warning);
+  color: var(--color-warning);
+}
+
+.button-escalate:hover:not(:disabled) {
+  background: var(--color-warning);
+  color: var(--bg-primary);
+  border-color: var(--color-warning);
+}
+
+.button-end-call {
+  border-color: var(--color-critical);
+  color: var(--color-critical);
+}
+
+.button-end-call:hover:not(:disabled) {
+  background: var(--color-critical);
+  color: var(--text-primary);
+  border-color: var(--color-critical);
+}
+
+.button-resolve {
+  border-color: var(--color-stable);
+  color: var(--color-stable);
+}
+
+.button-resolve:hover:not(:disabled) {
+  background: var(--color-stable);
+  color: var(--bg-primary);
+  border-color: var(--color-stable);
+}
+
+.control-disabled-message {
+  padding: 8px 16px;
+  background: var(--bg-elevated);
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}

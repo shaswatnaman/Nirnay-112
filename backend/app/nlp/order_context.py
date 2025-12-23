@@ -154,7 +154,11 @@ class OrderContextEngine:
             new_value: New value to consider (may be None)
             new_confidence: Confidence score for new value (0.0-1.0)
         """
-        if not new_value or new_confidence < 0.3:
+        # Lower confidence threshold to capture more entities (0.2 instead of 0.3)
+        # This helps with fragmented speech where confidence might be lower
+        if not new_value or new_confidence < 0.2:
+            # Get current value for logging (before early return)
+            current_value = getattr(self, field_name)
             # Low confidence or empty value - don't update
             return
         
