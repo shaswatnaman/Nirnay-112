@@ -1,0 +1,3 @@
+# Test-only dependencies. The deterministic decision-engine suite needs nothing
+# beyond pytest — no OpenAI, FastAPI, or network access required to run it.
+pytest>=7.0

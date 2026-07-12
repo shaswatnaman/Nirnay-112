@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  test:
+    name: Decision-engine unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install test dependencies
+        run: pip install pytest
+
+      # The deterministic decision engine (urgency scoring, escalation, stress
+      # estimation, context memory / rollback, explainability, audit log) depends
+      # only on the standard library, so the unit suite runs without OpenAI or
+      # any application service installed.
+      - name: Run tests
+        working-directory: backend
+        run: python -m pytest tests -q
