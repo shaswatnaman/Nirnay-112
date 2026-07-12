@@ -1,6 +1,10 @@
 
 **Nirnay-112** — real-time emergency call triage for Hindi/Hinglish using a **hybrid pipeline**: OpenAI for speech/perception + **deterministic local decision logic** + auditability.
 
+[![CI](https://github.com/shaswatnaman/Nirnay-112/actions/workflows/ci.yml/badge.svg)](https://github.com/shaswatnaman/Nirnay-112/actions/workflows/ci.yml)
+
+> **Architecture:** see [ARCHITECTURE.md](ARCHITECTURE.md). **Tests:** 43 deterministic unit tests (`cd backend && pip install pytest && python -m pytest tests -q`) — zero external dependencies, covering urgency scoring, escalation, stress estimation, and the context-memory snapshot/rollback safety layer.
+
 ---
 
 ## Problem Statement / Motivation
